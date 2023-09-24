@@ -42,6 +42,21 @@ export default {
       }
 
       const userRepository = AppDataSource.getRepository(User);
+
+      const findUser = await userRepository.findOneBy({ username });
+
+      if (!findUser) {
+        console.log(1);
+        return new GraphQLError("user is not found", {
+          extensions: {
+            code: "NOT_FOUND",
+
+            http: { status: 404 },
+          },
+        });
+      }
+
+      return findUser;
     },
   },
   Mutation: {
