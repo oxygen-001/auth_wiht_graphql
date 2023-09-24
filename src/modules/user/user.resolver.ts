@@ -40,6 +40,8 @@ export default {
           },
         });
       }
+
+      const userRepository = AppDataSource.getRepository(User);
     },
   },
   Mutation: {
