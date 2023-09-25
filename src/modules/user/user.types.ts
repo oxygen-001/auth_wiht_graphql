@@ -23,6 +23,6 @@ export interface ForFile {
 }
 
 export interface File {
-  file?: ForFile;
+  file: Promise<any>;
   id: number;
 }
