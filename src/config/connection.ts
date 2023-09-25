@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm";
 import { join } from "path";
 import { User } from "../model/user";
+import { Photo } from "../model/image";
 
 const AppDataSource = new DataSource({
   type: "postgres",
@@ -9,7 +10,7 @@ const AppDataSource = new DataSource({
   host: "db",
   password: "password",
   database: "auth",
-  entities: [User],
+  entities: [User, Photo],
   synchronize: true,
   logging: false,
 });

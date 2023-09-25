@@ -1,9 +1,12 @@
 import { GraphQLError } from "graphql";
-import { ForToken, SignIn, SignUp, UserByUsername } from "./user.types";
+import { File, ForToken, SignIn, SignUp, UserByUsername } from "./user.types";
 import { AppDataSource } from "../../config/connection";
 import { User } from "../../model/user";
+import { resolve } from "path";
+import fs, { createWriteStream } from "fs";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { GraphQLUpload } from "graphql-upload-ts";
 
 export default {
   Query: {
@@ -122,6 +125,24 @@ export default {
         data: createUser,
         access_token: getToken,
       };
+    },
+
+    uploadFile: async (
+      _: any,
+      { file, id }: File,
+      { access_token }: ForToken
+    ) => {
+      try {
+        let { fileName, createReadStream } = await file;
+        fileName = Date.now() + fileName.replace(/\s/g, "");
+        const stream = createReadStream();
+        const out = createWriteStream(resolve("uploads", fileName));
+        stream.pipe(out);
+
+        return "file upload";
+      } catch (error: any) {
+        console.log(error.message);
+      }
     },
   },
 };

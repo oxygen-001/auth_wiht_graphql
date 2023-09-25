@@ -1,5 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import bcryp from "bcrypt";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Photo } from "./image";
 
 @Entity("users")
 export class User {
@@ -13,4 +13,7 @@ export class User {
 
   @Column({ nullable: false })
   password: string;
+
+  @OneToMany(() => Photo, (photo) => photo.user)
+  photos: Photo[];
 }

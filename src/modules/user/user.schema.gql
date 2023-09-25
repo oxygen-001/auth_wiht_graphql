@@ -14,9 +14,17 @@ type Response {
   access_token: String
 }
 
+type File {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}
+
 type Mutation {
   signIn(username: String!, password: String!): Response
   signUp(username: String!, password: String!): Response
+  uploadFile(file: Upload!, id: Int!): String
 }
 
 scalar Any
+scalar Upload
