@@ -133,10 +133,12 @@ export default {
       { access_token }: ForToken
     ) => {
       try {
-        let { fileName, createReadStream } = await file;
-        fileName = Date.now() + fileName.replace(/\s/g, "");
+        let { filename, createReadStream } = await file;
+        console.log(filename);
+
+        filename = Date.now() + filename.replace(/\s/g, "");
         const stream = createReadStream();
-        const out = createWriteStream(resolve("uploads", fileName));
+        const out = createWriteStream(resolve("uploads", filename));
         stream.pipe(out);
 
         return "file upload";
@@ -145,4 +147,5 @@ export default {
       }
     },
   },
+  Upload: GraphQLUpload,
 };

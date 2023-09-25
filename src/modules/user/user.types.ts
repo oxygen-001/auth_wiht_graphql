@@ -23,6 +23,6 @@ export interface ForFile {
 }
 
 export interface File {
-  file: ForFile;
+  file?: ForFile;
   id: number;
 }
